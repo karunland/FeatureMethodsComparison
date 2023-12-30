@@ -14,10 +14,10 @@ if __name__ == '__main__':
 
     if (rotateDegree == 1):
         print(f"using scaled image")
-        imgAlign = cv2.resize(imgReference, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
+        imgAlign = cv2.imread('./images/george1e_scaled.jpeg', cv2.IMREAD_GRAYSCALE)
     elif (rotateDegree == 2):
         print(f"adding noised image")
-        imgAlign = cv2.imread('./images/salt-and-pepper-george.jpg', cv2.IMREAD_GRAYSCALE)
+        imgAlign = cv2.imread('./images/salt-and-pepper-george.jpeg', cv2.IMREAD_GRAYSCALE)
     else:
         print(f"using rotated image")
         imgAlign = imutils.rotate_bound(imgReference, rotateDegree)
@@ -26,7 +26,6 @@ if __name__ == '__main__':
         orb = cv2.ORB_create()
         referenceKp, referenceDes = orb.detectAndCompute(imgReference, None)
         alignKp, alignDes = orb.detectAndCompute(imgAlign, None)
-
     elif(algorithm == 'sift'):
         sift = cv2.xfeatures2d.SIFT_create()
         referenceKp, referenceDes = sift.detectAndCompute(imgReference, None)
