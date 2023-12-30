@@ -1,23 +1,30 @@
-import cv2 
-import matplotlib.pyplot as plt
-import os, sys
-arg1 = sys.argv[1]
+import cv2
+import os
+import sys
 
-if (os.path.exists(f'./images/{arg1}')):
-    img = cv2.imread(f'./images/{arg1}')
-else:
-    print('File not found')
-    exit()
+def resize_image_with_fixed_height(img, desired_height):
+    height, width = img.shape[:2]
+    aspect_ratio = width / height
+    new_width = int(desired_height * aspect_ratio)
+    
+    return cv2.resize(img, (new_width, desired_height))
 
-print('Image shape:', img.shape)
-print('Image data type:', img.dtype)
+if __name__ == '__main__':
+    name = sys.argv[1]
+    resolution = int(sys.argv[2])  # sys.argv ile alınan inputu integer'a dönüştür
 
-img = cv2.resize(img, (0,0), fx = 0.3, fy = 0.3)
+    if os.path.exists(name):
+        img = cv2.imread(name)
+    else:
+        print('File not found')
+        exit()
 
-print('Image shape:', img.shape)
-print('Image data type:', img.dtype)
+    print('Image shape:', img.shape)
 
-# img stringinde . kadar olan kismi kesip yeni bir degiskene atiyoruz
-img_name = arg1.split('.')[0]
+    img = resize_image_with_fixed_height(img, resolution)
 
-cv2.imwrite(f'./images/{img_name}_resized.jpeg', img)
+    print('New image shape:', img.shape)
+
+    img_name = os.path.splitext(os.path.basename(name))[0]
+
+    cv2.imwrite(f'./images/{img_name}_resized.jpeg', img)
