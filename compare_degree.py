@@ -28,7 +28,7 @@ if __name__ == '__main__':
     if (rotateDegree == 1):
         print(f"using scaled image")
         imgAlign = cv2.imread(
-            './images/george-scaled2x.jpeg', cv2.IMREAD_GRAYSCALE)
+            './images/george1e_resized.jpeg', cv2.IMREAD_GRAYSCALE)
     elif (rotateDegree == 2):
         print(f"adding noised image")
         imgAlign = cv2.imread(

@@ -38,6 +38,6 @@ execute_comparison 'orb'
 time python3 compare_degree.py "sift" "$referenceImage" '1' '0'
 time python3 compare_degree.py "orb" "$referenceImage" '1' '0'
 
-time python3 compare_degree.py "sift" "./images/george1e-resized-400.jpeg" '2' '0'
-time python3 compare_degree.py "orb" "./images/george1e-resized-400.jpeg" '2' '0'
+time python3 compare_degree.py "sift" "$referenceImage" '2' '0'
+time python3 compare_degree.py "orb" "$referenceImage" '2' '0'
 
