@@ -1,21 +1,34 @@
 # Başlangıç
 
-Feature Detection, görüntü bilgisini soyutlayarak her bir görüntü noktasında yerel kararlar alarak belirli özellikleri tespit etme sürecini ifade eder. Bu, makine görüşü ve robotik alanlarında önemli bir konu olmuş ve çeşitli alanlarda uygulama alanı bulmuştur. İdeal bir özellik algılama yöntemi, dönme, ölçek, aydınlatma değişiklikleri, gürültü ve affine dönüşümler gibi çeşitli görüntü dönüşümlerine karşı dayanıklı olmalıdır. Ayrıca, bu özellikler yüksek düzeyde ayırt edici olmalıdır ki doğru eşleştirmeler yapılabilsin.
-
-2004 yılında Lowe tarafından geliştirilen Scale Invariant Feature Transform (SIFT), nesne tanıma alanında oldukça etkili olmasına rağmen gerçek zamanlı uygulamalarda özellikle büyük hesaplama karmaşıklığı gerektirmesi büyük bir sorundur. SIFT'in hesaplama karmaşıklığını azaltmak için çeşitli varyasyonları bulunmaktadır. Speeded Up Robust Features (SURF), SIFT'in bir yaklaşımı olup algılanan noktaların kalitesini düşürmeden daha hızlı çalışır. Binary Robust Independent Elementary Features (BRIEF) ve Oriented FAST and Rotated BRIEF (ORB) gibi, SIFT'e göre daha az karmaşıklık gerektiren alternatif yöntemler bulunmaktadır.
-
-Bu özellik algılama yöntemleri, nesne tanıma alanının ötesinde farklı alanlarda da kullanılmaktadır. Örneğin, buz dağlarının izlenmesi veya buz hareketinin takibi gibi uzaktan algılama uygulamalarında kullanılır. SIFT ve SURF arasında yapılan karşılaştırmalara rağmen, ORB ile karşılaştırma yapan makalelerin eksik olduğu bilinmektedir. Bu çalışma, SIFT, SURF ve ORB yöntemlerinin performansını ve dayanıklılığını, dönme, ölçeklendirme, kesme deformiteleri ve geniş açılı görüntülemelerde kullanılan balık gözü distorsiyonları gibi çeşitli dönüşümlere karşı karşılaştırmayı amaçlamaktadır. Ayrıca, her senaryoda gerekli olan ilgi noktalarının sayısını belirlemeyi hedeflemektedir. Balık gözü distorsiyonuna maruz kalmış bir görüntü örneği Şekil 1'de gösterilmiştir.
-
+Günümüzde, görüntü işleme ve bilgisayarlı görüş alanında, görüntü hizalaması ve benzeri görevler büyük önem taşımaktadır. Görüntü hizalaması, farklı açılardan veya farklı koşullarda çekilen görüntülerin, bir referans görüntüye veya birbirlerine göre hizalanması anlamına gelir. Bu tür teknikler, birçok uygulama alanında kullanılmaktadır; örneğin, artırılmış gerçeklik, 3B modelleme, medikal görüntüleme ve görüntü üzerindeki nesnelerin tespiti gibi alanlarda sıklıkla başvurulan önemli bir işlemdir.
 
 # GÖRÜNTÜ EŞLEŞTİRME TEKNİKLERİNİN GENEL BAKIŞI
 
 ## SIFT
-SIFT, Lowe tarafından önerilmiştir ve görüntü rotasyonu, afin dönüşümler, yoğunluk ve bakış açısı değişikliklerini eşleşme özelliklerinde çözer. SIFT algoritmasının 4 temel adımı bulunmaktadır. İlk olarak, Gaussian Farkı (DoG) kullanılarak bir ölçek uzayı ekstremumunun tahmin edilmesidir. İkinci olarak, anahtar nokta yerelleştirmesi, aday anahtar noktalarının düşük kontrastlı noktaları elemine edilerek yerelleştirilmesi ve iyileştirilmesidir. Üçüncü olarak, lokal görüntü gradyanına dayalı anahtar nokta yönlendirmesi ve son olarak her anahtar nokta için görüntü gradyanı büyüklüğüne ve yönelimine dayalı yerel görüntü tanımlayıcısının hesaplanması için bir tanımlayıcı üretecini içerir.
-
-## SURF
-SURF, DoG'u kutu filtreleriyle yaklaşık olarak hesaplar. Görüntüyü Gauss filtrelemek yerine, integral görüntü kullanıldığında karelerin kullanılmasıyla yaklaşım yapılır, çünkü kare ile konvolüsyon kullanıldığında işlem çok daha hızlı gerçekleşir. Ayrıca, farklı ölçekler için paralel olarak yapılabilir. SURF, ilgi noktalarını bulmak için Hessian matrisine dayalı BLOB dedektörü kullanır. Yönlendirme ataması için yeterli Gaussian ağırlıkları uygulayarak hem yatay hem de dikey yönde wavelet tepkilerini kullanır. Özellik açıklaması için de SURF, wavelet tepkilerini kullanır. Anahtar noktanın etrafında bir mahalle seçilir, alt bölgelere ayrılır ve her bir alt bölge için wavelet tepkileri alınır ve SURF özellik tanımlayıcısını elde etmek için temsil edilir. Algılama sırasında zaten hesaplanan Laplacian'ın işaretini ilgi noktaları için kullanır. Laplacian'ın işareti, koyu arka plan üzerinde parlak lekeleri tersinden ayırt eder. Eşleştirme durumunda, özellikler sadece aynı tür kontrasta sahipse (işarete dayalı olarak), daha hızlı eşleştirmeye izin vermek için karşılaştırılır 
+SIFT (Scale-Invariant Feature Transform): SIFT, görüntülerdeki ölçek değişikliklerine karşı dayanıklı olan ve aynı zamanda dönüklük, rotasyon ve aydınlatma değişikliklerine karşı da istikrarlı sonuçlar veren bir özellik tanıma algoritmasıdır. Bu algoritma, görüntüdeki benzersiz özellikleri çıkarmak için ölçek uzayında özellik noktaları bulur ve bu özellikleri açıklayıcı vektörlerle temsil eder.
 
 ## ORB
-ORB (Oriented FAST and Rotated BRIEF), FAST anahtar nokta tespitçisi ve BRIEF tanımlayıcısının bazı değişikliklerle birleşimidir. Öncelikle anahtar noktaları belirlemek için FAST kullanır. Ardından en iyi N noktayı bulmak için Harris köşe ölçüsü uygulanır. FAST, yönlendirmeyi hesaplamaz ve dönme değişkenidir. Yerleşik köşenin ağırlıklı merkezini yoğunluk hesaplı bir şekilde belirler. Bu köşe noktasından merkeze olan vektörün yönü yönlendirmeyi verir. Dönme invariyansını iyileştirmek için momentler hesaplanır. BRIEF tanımlayıcısı, düzlem içi dönme durumunda zayıf performans gösterir. ORB'da, yamukluğun yönlendirmesi kullanılarak bir dönme matrisi hesaplanır ve ardından BRIEF tanımlayıcıları bu yönlendirmeye göre düzenlenir.
+ORB (Oriented FAST and Rotated BRIEF): ORB, hızlı ve etkili bir şekilde çalışabilen, özellikle gerçek zamanlı sistemler için ideal olan bir özellik tanıma algoritmasıdır. Hızlı özellik çıkarma ve eşleştirme yapabilme yeteneği, özellikle uygulama gereksinimleri düşünüldüğünde avantaj sağlar.
 
+## Çalışmanın Kapsamı
+Bu çalışma, SIFT ve ORB algoritmalarını, farklı görüntü hizalama senaryolarında karşılaştırarak, her bir algoritmanın performansını değerlendirmeyi amaçlamaktadır. Görüntüler arasındaki benzerlik ve uygunluk derecelerinin ölçülmesi, algoritmaların başarımını belirlemek için temel göstergeler olarak kullanılacaktır.
+Çalışmanın ilerleyen aşamalarında, her bir algoritmanın kullanımıyla elde edilen sonuçlar incelenecek ve performansları, farklı deformasyonlar ve dönüşler altında nasıl değiştiği detaylı bir şekilde değerlendirilecektir.
+<div style="display: inline-block;">
+  <img src="outputs/sift-45.png" alt="Image Description" width="270" height="auto">
+  <img src="outputs/sift-salt-100.png" alt="Image Description" width="270" height="auto">
+  <img src="outputs/scaled-sift.png" alt="Image Description" width="270" height="auto">
+</div>
 
+# Sonuçlar
+Yapılan deneylerden elde edilen sonuçlar aşağıda özetlenmiştir:
+Rotasyon Etkisi:
+- Makalede: Rotasyon açısının SIFT ve ORB algoritmalarının performansını etkilediği, özellikle SIFT'in 45 derece rotasyonda daha yüksek eşleştirme oranları sağladığı belirtilmiştir.
+- Deney: Benim deneylerimde de, SIFT algoritmasının 45 derece rotasyonda ORB'den daha iyi bir performans gösterdiği görülmüştür.
+Ölçeklendirme Etkisi:
+- Makalede: Ölçeklendirme durumunda ORB algoritmasının en yüksek eşleştirme oranını sunduğu, SIFT'in ise daha düşük ancak kabul edilebilir bir oranda eşleştirme sağladığı belirtilmiştir.
+- Deney: Benim deneylerimde de, SIFT algoritmasının ölçeklendirme durumunda daha yüksek eşleştirme oranları sunduğu gözlemlenmiştir.
+Gürültülü Görüntülerin Etkisi:
+- Makalede: Tuz ve biber gürültüsünün eşleştirme oranlarını etkilediği, ORB ve SIFT algoritmalarının bu durumda en iyi performansı sunduğu belirtilmiştir.
+- Deney: Benim deneylerimde ise, gürültülü görüntülerde SIFT algoritmasının daha iyi bir performans gösterdiği, ORB algoritmasının ise gürültülü ortamda daha düşük bir performans sergilediği gözlemlenmiştir.
+
+Bu sonuçlar, SIFT ve ORB algoritmalarının farklı koşullar altında farklı performanslar gösterdiğini ve bu algoritmaların birbirine göre avantaj ve dezavantajlarının bulunduğunu göstermektedir. Genel olarak, her iki algoritma da belirli koşullarda yüksek eşleştirme oranları sağlasa da, koşullar değiştikçe performanslarının da farklılık gösterdiği gözlemlenmiştir.
