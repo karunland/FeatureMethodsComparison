@@ -38,3 +38,32 @@ Gürültülü Görüntülerin Etkisi:
 - Deney: Benim deneylerimde ise, gürültülü görüntülerde SIFT algoritmasının daha iyi bir performans gösterdiği, ORB algoritmasının ise gürültülü ortamda daha düşük bir performans sergilediği gözlemlenmiştir.
 
 Bu sonuçlar, SIFT ve ORB algoritmalarının farklı koşullar altında farklı performanslar gösterdiğini ve bu algoritmaların birbirine göre avantaj ve dezavantajlarının bulunduğunu göstermektedir. Genel olarak, her iki algoritma da belirli koşullarda yüksek eşleştirme oranları sağlasa da, koşullar değiştikçe performanslarının da farklılık gösterdiği gözlemlenmiştir.
+
+### TABLE I. 45 derece döndürülmeden çıkan değerler
+
+| Süre (sn) | Kpnts1 | Kpnts2 | Match | Oran (%) |
+|-----------|--------|--------|-------|----------|
+| Sift      | 2,391  | 2561   | 2649  | 42.44    |
+| Orb       | 0.97   | 6415   | 6185  | 20.05    |
+
+### TABLE II. Farklı dönme açılarında eşleşme oranları
+
+| Açılar | 0   | 45   | 90   | 135  | 180  | 225  | 270  |
+|--------|-----|------|------|------|------|------|------|
+| Sift   | 100 | 42.44| 87.80| 42.63| 84.95| 41.74| 86.32|
+| Orb    | 100 | 20.05| 62.14| 20.77| 49.51| 21.2 | 57.34|
+
+
+### TABLE III. Gürültülü Görüntülerin Etkisi
+
+| Süre (sn) | Kpnts1 | Kpnts2 | Match | Oran (%) |
+|-----------|--------|--------|-------|----------|
+| Sift      | 0,69   | 891    | 325   | 21,10    |
+| Orb       | 1,04   | 6728   | 1288  | 5,10     |
+
+### TABLE IV. Ölçeklendirme Etkisi
+
+| Süre (sn) | Kpnts1 | Kpnts2 | Match | Oran (%) |
+|-----------|--------|--------|-------|----------|
+| Sift      | 2,43   | 4224   | 2649  | 38,38    |
+| Orb       | 0,8    | 7225   | 6185  | 17,41    |
