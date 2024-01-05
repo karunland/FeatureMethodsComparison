@@ -28,16 +28,16 @@ execute_comparison() {
     local algorithm="$1"
     echo "Algorithm: $algorithm"
     for angle in "0" "45" "90" "135" "180" "225" "270"; do
-        time python3 -W ignore compare_degree.py "$algorithm" "$referenceImage" "$angle" '1'
+        time python3 compare_degree.py "$algorithm" "$referenceImage" "$angle" '1'
     done
 }
 
 execute_comparison 'sift'
 execute_comparison 'orb'
 
-time python3 -W ignore compare_degree.py "sift" "$referenceImage" '1' '0'
-time python3 -W ignore compare_degree.py "orb" "$referenceImage" '1' '0'
+time python3 compare_degree.py "sift" "$referenceImage" '1' '0'
+time python3 compare_degree.py "orb" "$referenceImage" '1' '0'
 
-time python3 -W ignore compare_degree.py "sift" "./images/george1e-resized-400.jpeg" '2' '0'
-time python3 -W ignore compare_degree.py "orb" "./images/george1e-resized-400.jpeg" '2' '0'
+time python3 compare_degree.py "sift" "./images/george1e-resized-400.jpeg" '2' '0'
+time python3 compare_degree.py "orb" "./images/george1e-resized-400.jpeg" '2' '0'
 
