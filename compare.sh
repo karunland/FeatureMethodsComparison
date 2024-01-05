@@ -11,17 +11,17 @@ fi
 
 if [ ! -f "./images/george1e_resized.jpeg" ] ; then
     echo "File george1e_resized.jpeg does not exist. Resizing..."
-    python3 resize.py "$referenceImage" '100'
+    python3 helper/resize.py "$referenceImage" '100'
 fi
 
 if [ ! -f "./images/george1e_scaled.jpeg" ] ; then
     echo "File george1e_scaled.jpeg does not exist. Resizing..."
-    python3 scale.py "$referenceImage"
+    python3 helper/scale.py "$referenceImage"
 fi
 
 if [ ! -f "./images/salt-and-pepper-george.jpeg" ] ; then
     echo "File salt-and-pepper-george.jpeg does not exist. Resizing..."
-    python3 rotate.py "$referenceImage"
+    python3 helper/rotate.py "$referenceImage"
 fi
 
 execute_comparison() {
