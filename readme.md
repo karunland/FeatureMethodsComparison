@@ -21,13 +21,19 @@ Bu çalışma, SIFT ve ORB algoritmalarını, farklı görüntü hizalama senary
 
 # Sonuçlar
 Yapılan deneylerden elde edilen sonuçlar aşağıda özetlenmiştir:
+
 Rotasyon Etkisi:
+
 - Makalede: Rotasyon açısının SIFT ve ORB algoritmalarının performansını etkilediği, özellikle SIFT'in 45 derece rotasyonda daha yüksek eşleştirme oranları sağladığı belirtilmiştir.
 - Deney: Benim deneylerimde de, SIFT algoritmasının 45 derece rotasyonda ORB'den daha iyi bir performans gösterdiği görülmüştür.
+
 Ölçeklendirme Etkisi:
+
 - Makalede: Ölçeklendirme durumunda ORB algoritmasının en yüksek eşleştirme oranını sunduğu, SIFT'in ise daha düşük ancak kabul edilebilir bir oranda eşleştirme sağladığı belirtilmiştir.
 - Deney: Benim deneylerimde de, SIFT algoritmasının ölçeklendirme durumunda daha yüksek eşleştirme oranları sunduğu gözlemlenmiştir.
+
 Gürültülü Görüntülerin Etkisi:
+
 - Makalede: Tuz ve biber gürültüsünün eşleştirme oranlarını etkilediği, ORB ve SIFT algoritmalarının bu durumda en iyi performansı sunduğu belirtilmiştir.
 - Deney: Benim deneylerimde ise, gürültülü görüntülerde SIFT algoritmasının daha iyi bir performans gösterdiği, ORB algoritmasının ise gürültülü ortamda daha düşük bir performans sergilediği gözlemlenmiştir.
 
